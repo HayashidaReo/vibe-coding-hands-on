@@ -1,120 +1,129 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
+const slides = [
+  {
+    id: 0,
+    type: 'title',
+    title: 'バイブコーディング手順',
+  },
+  {
+    id: 1,
+    step: 1,
+    title: 'GitHubアカウント作成',
+    description: 'Copilot を使うために GitHub アカウントを作成しましょう。',
+    url: 'https://github.com/',
+    urlLabel: 'github.com',
+  },
+  {
+    id: 2,
+    step: 2,
+    title: 'VS Code をダウンロード',
+    description: '公式サイトから VS Code をダウンロードしてインストールします。',
+    url: 'https://code.visualstudio.com/',
+    urlLabel: 'code.visualstudio.com',
+  },
+  {
+    id: 3,
+    step: 3,
+    title: 'Node.js (npm) をダウンロード',
+    description: '公式サイトから LTS 版をダウンロードしてインストールします。',
+    url: 'https://nodejs.org/',
+    urlLabel: 'nodejs.org',
+  },
+  {
+    id: 4,
+    step: 4,
+    title: '拡張機能をインストール',
+    description: 'VS Code に「GitHub Copilot」と「Copilot Chat」の拡張機能を追加します。',
+  },
+  {
+    id: 5,
+    step: 5,
+    title: 'Vite プロジェクトを作成',
+    description: 'チャッピーなどに「vite のプロジェクトの立ち上げ方を教えて」と聞いて、ターミナルで実行します。',
+  },
+  {
+    id: 6,
+    step: 6,
+    title: 'プロジェクトに移動',
+    description: 'cd コマンドで作成した vite プロジェクトのディレクトリに移動します。',
+    code: 'cd <プロジェクト名>',
+  },
+  {
+    id: 7,
+    step: 7,
+    title: 'Copilot に指示を送る',
+    description: 'モデルを GPT-4.1 に選択し、「○○を作りたい。（こだわるポイントやコンセプトを伝える）実行して。」と送信します。',
+  },
+  {
+    id: 8,
+    step: 8,
+    title: '完成物を確認',
+    description: 'ローカルサーバーを起動して、ブラウザで完成物を確認しましょう！',
+    code: 'npm run dev',
+  },
+  {
+    id: 9,
+    step: 10,
+    title: 'ブラッシュアップを繰り返す',
+    description: 'エラーや改善点を見つけて、再度 Copilot に指示を送る。確認する。を繰り返してクオリティを上げましょう！',
+  },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [current, setCurrent] = useState(0)
+
+  const prev = () => setCurrent((c) => Math.max(0, c - 1))
+  const next = () => setCurrent((c) => Math.min(slides.length - 1, c + 1))
+
+  const handleKey = (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next()
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev()
+  }
+
+  const slide = slides[current]
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="slideshow" tabIndex={0} onKeyDown={handleKey}>
+      <div className="slide-area">
+        {slide.type === 'title' ? (
+          <div className="slide title-slide">
+            <h1 className="slide-main-title">{slide.title}</h1>
+            <p className="slide-subtitle">GitHub Copilot ✕ Vite ✕ React</p>
+          </div>
+        ) : (
+          <div className="slide step-slide">
+            <div className="step-number">STEP {slide.step}</div>
+            <h2 className="slide-title">{slide.title}</h2>
+            <p className="slide-desc">{slide.description}</p>
+            {slide.code && <pre className="slide-code">{slide.code}</pre>}
+            {slide.url && (
+              <a className="slide-link" href={slide.url} target="_blank" rel="noreferrer">
+                🔗 {slide.urlLabel}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
 
-      <div className="ticks"></div>
+      <div className="slide-nav">
+        <button className="nav-btn" onClick={prev} disabled={current === 0}>←</button>
+        <span className="slide-counter">{current + 1} / {slides.length}</span>
+        <button className="nav-btn" onClick={next} disabled={current === slides.length - 1}>→</button>
+      </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <div className="slide-dots">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            className={`dot${i === current ? ' active' : ''}`}
+            onClick={() => setCurrent(i)}
+            aria-label={`スライド ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
