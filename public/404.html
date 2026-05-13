@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      ;(() => {
+        const { pathname, search, hash } = window.location
+        const baseMatch = pathname.match(/^\/[^/]+\//)
+        const basePath = baseMatch ? baseMatch[0] : '/'
+        const routePath = pathname.startsWith(basePath)
+          ? pathname.slice(basePath.length - 1)
+          : pathname
+
+        const extraSearch = search ? `&${search.slice(1)}` : ''
+        const target = `${basePath}?p=${encodeURIComponent(routePath)}${extraSearch}${hash}`
+        window.location.replace(target)
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -105,3 +105,61 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.toc-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 20% 20%, var(--accent-bg), transparent 45%),
+    radial-gradient(circle at 80% 80%, var(--accent-bg), transparent 45%),
+    var(--bg);
+}
+
+.toc-card {
+  width: min(760px, 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  background: color-mix(in srgb, var(--bg) 92%, var(--accent-bg));
+}
+
+.toc-kicker {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.toc-title {
+  margin: 0;
+}
+
+.toc-subtitle {
+  margin-top: 10px;
+  margin-bottom: 24px;
+}
+
+.toc-links {
+  display: grid;
+  gap: 12px;
+}
+
+.toc-link {
+  display: block;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--text-h);
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-weight: 600;
+}
+
+.toc-link:hover {
+  transform: translateY(-1px);
+}

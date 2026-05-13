@@ -14,7 +14,7 @@
 /* ─── Slide card ─── */
 .slide-area {
   width: 100%;
-  max-width: 760px;
+  max-width: 980px;
 }
 
 .slide {
@@ -86,6 +86,43 @@
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
   line-height: 1.7;
+}
+
+.security-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.security-steps li {
+  font-size: clamp(0.92rem, 2vw, 1rem);
+}
+
+.security-prompt {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.34);
+  color: #dbeafe;
+  font-size: clamp(0.72rem, 1.35vw, 0.84rem);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre-wrap;
+}
+
+.slide-image {
+  width: 100%;
+  max-width: 760px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  object-fit: contain;
+  align-self: center;
 }
 
 .slide-code {
